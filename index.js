@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity,
-         Platform } from 'react-native';
+         Platform, KeyboardAvoidingView } from 'react-native';
 
 class DialogInput extends React.Component{
   constructor(props){
@@ -28,6 +28,7 @@ class DialogInput extends React.Component{
 
     return(
       <Modal
+        supportedOrientations={['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']}
         animationType="fade"
         transparent={true}
         visible={this.props.isDialogVisible}
@@ -35,7 +36,7 @@ class DialogInput extends React.Component{
           this.props.closeDialog();
           this.setState({ inputModal: '' });
       	}}>
-        <View style={[styles.container, {...modalStyleProps}]}  >
+        <KeyboardAvoidingView style={[styles.container, {...modalStyleProps}]} behavior="padding" enabled>
           <TouchableOpacity style={styles.container} activeOpacity={1} onPress={() => { this.props.closeDialog(); this.setState({ inputModal: '',openning: true })}} >
             <View style={[styles.modal_container, {...dialogStyleProps}]} >
               <View style={styles.modal_body} >
@@ -74,7 +75,7 @@ class DialogInput extends React.Component{
               </View>
             </View>
           </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     );
   }
